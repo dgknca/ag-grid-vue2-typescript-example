@@ -1,0 +1,122 @@
+.ag-theme-alpine {
+    .header-text-left {
+        .ag-header-cell-label {
+            justify-content: flex-end;
+        }
+    }
+
+    .ag-root-wrapper {
+        border: none;
+        border-radius: 3px;
+    }
+
+    .ag-header {
+        background: var(--gray1);
+        border-bottom-color: var(--border-color);
+    }
+
+    .ag-header-cell-text {
+        text-transform: uppercase;
+        font-weight: 500;
+        color: var(--gray3);
+    }
+
+    .ag-cell-value {
+        color: var(--gray4);
+        font-weight: 400;
+        font-size: 14px;
+    }
+
+    .ag-row {
+        height: var(--cell-height);
+        border: none !important;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--border-color) !important;
+        }
+
+        &-odd {
+            background: #fff;
+        }
+
+        &-hover {
+            background: var(--gray1);
+        }
+    }
+
+    .ag-cell {
+        line-height: var(--cell-height);
+    }
+
+    .ag-pinned-left-header,
+    .ag-cell.ag-cell-last-left-pinned:not(.ag-cell-range-right):not(.ag-cell-range-single-cell) {
+        border-right-color: var(--border-color);
+    }
+
+    .ag-header-group-cell-label,
+    .ag-header-cell-label {
+        flex-direction: row-reverse;
+        justify-content: center;
+    }
+
+    .ag-ltr .ag-header-cell:not(.ag-right-aligned-header) .ag-header-label-icon {
+        margin-left: 0;
+        margin-right: 8px;
+    }
+
+    .grid-cell-searchvolume {
+        span svg {
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+    }
+
+    .grid-cell-rank {
+        text-align: center;
+
+        span svg {
+            margin-left: 8px;
+        }
+    }
+
+    .grid-cell-diff {
+        text-align: center;
+
+        span {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        &.grid-cell-diffRank {
+            span {
+                background: rgba(#21d99b, 0.1);
+                color: var(--green);
+            }
+        }
+
+        &.grid-cell-diffPixelRank {
+            span {
+                background: rgba(#ff4d79, 0.1);
+                color: var(--red);
+            }
+        }
+    }
+
+    .grid-cell-urlpage {
+        color: var(--purple);
+    }
+}
+
+.ag-header-icon {
+    padding-top: 2px;
+}
+
+.ag-paging-panel {
+    border: none !important;
+}
+
+.ag-root-wrapper-body {
+    border: 1px solid var(--border-color);
+}
