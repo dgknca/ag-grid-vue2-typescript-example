@@ -7,6 +7,7 @@
       :columnDefs="columnDefs"
       @grid-ready="onGridReady"
       @cell-clicked="onCellClicked"
+      :gridOptions="gridOptions"
     ></ag-grid-vue>
   </div>
 </template>
@@ -29,6 +30,11 @@ export default class Home extends Vue {
   rowData: any = null;
   gridApi: any = null;
   columnApi: any = null;
+
+  gridOptions: any = {
+    pagination: true,
+    paginationPageSize: 20
+  };
 
   listOfKeywords = "http://95.217.76.23:5454/api/list_keyword_info_for_domain";
   listEx =
