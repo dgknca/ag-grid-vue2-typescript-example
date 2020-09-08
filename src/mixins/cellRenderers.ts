@@ -60,6 +60,10 @@ class CellRenderers extends Vue {
     return params.value
   }
 
+  public urlPageRenderer(params: any): string {
+    return `<a href="${params.value}" target="_blank">${params.value}</a>`
+  }
+
   public cpcRenderer(params: any): string {
     const value = params.value
     const num = value.toFixed(2)

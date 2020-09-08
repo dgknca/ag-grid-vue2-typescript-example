@@ -112,6 +112,10 @@
     .grid-cell-urlpage {
         color: var(--purple);
     }
+
+    a {
+        text-decoration: none;
+    }
 }
 
 .ag-header-icon {
@@ -139,3 +143,8 @@
 .ag-paging-button-wrapper[ref="btLast"] {
     display: none;
 }
+
+// .ag-cell-focus,
+// .ag-cell {
+//     border: none !important;
+// }

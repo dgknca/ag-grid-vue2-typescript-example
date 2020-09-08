@@ -69,6 +69,7 @@ class AgGridProperties extends Mixins(CellRenderers) {
         flex: 1,
         suppressSizeToFit: true,
         headerClass: 'header-text-left',
+        cellRenderer: this.urlPageRenderer,
         cellClass: 'grid-cell-urlpage'
       },
       {
