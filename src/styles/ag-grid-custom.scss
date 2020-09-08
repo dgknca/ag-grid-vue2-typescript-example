@@ -66,8 +66,8 @@
 
     .grid-cell-searchvolume {
         span svg {
-            margin-right: 10px;
-            margin-left: 20px;
+            margin-right: 15px;
+            margin-left: 10px;
         }
     }
 
@@ -123,4 +123,18 @@
 
 .ag-root-wrapper-body {
     border: 1px solid var(--border-color);
+}
+
+.ag-paging-panel .ag-icon {
+    padding: 5px 8px;
+    border: 1px solid var(--gray2);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ag-paging-button-wrapper[ref="btFirst"],
+.ag-paging-button-wrapper[ref="btLast"] {
+    display: none;
 }

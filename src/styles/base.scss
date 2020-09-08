@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&display=swap");
+
 * {
     box-sizing: border-box;
+    font-family: "Barlow", sans-serif;
 }
 
 html,
@@ -12,5 +15,4 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "Barlow", sans-serif;
 }
