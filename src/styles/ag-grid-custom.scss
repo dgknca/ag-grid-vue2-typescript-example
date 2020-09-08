@@ -30,10 +30,7 @@
     .ag-row {
         height: var(--cell-height);
         border: none !important;
-
-        &:not(:last-child) {
-            border-bottom: 1px solid var(--border-color) !important;
-        }
+        border-bottom: 1px solid var(--border-color) !important;
 
         &-odd {
             background: #fff;
@@ -62,6 +59,10 @@
     .ag-ltr .ag-header-cell:not(.ag-right-aligned-header) .ag-header-label-icon {
         margin-left: 0;
         margin-right: 8px;
+    }
+
+    .grid-cell-centered {
+        text-align: center;
     }
 
     .grid-cell-searchvolume {

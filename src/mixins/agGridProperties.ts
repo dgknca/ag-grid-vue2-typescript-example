@@ -52,6 +52,7 @@ class AgGridProperties extends Mixins(CellRenderers) {
       {
         headerName: 'px rank',
         field: 'pixelRank',
+        cellRenderer: this.pixelRankRenderer,
         cellClass: 'grid-cell-pixelRank'
       },
       {
@@ -73,6 +74,7 @@ class AgGridProperties extends Mixins(CellRenderers) {
       {
         headerName: 'cpc - $',
         field: 'cpc',
+        cellRenderer: this.cpcRenderer,
         cellClass: 'grid-cell-centered'
       }
     ]
@@ -129,8 +131,13 @@ class AgGridProperties extends Mixins(CellRenderers) {
 
   public onCellClicked(event: any): void {
     console.log('onCellClicked: ' + event.rowIndex + ' ' + event.colDef.field)
-    console.log(event.value.split(' '))
+    // console.log(event.value.split(' '))
     console.log('cell clicked')
+    // this.gridApi.ensureIndexVisible(event.rowIndex, 'top')
+  }
+
+  public onRowClicked(event: any): void {
+    console.log(event.node)
   }
 }
 

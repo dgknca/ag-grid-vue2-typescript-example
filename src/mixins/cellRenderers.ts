@@ -44,8 +44,27 @@ class CellRenderers extends Vue {
     return value + transporterDiv.innerHTML
   }
 
+  public pixelRankRenderer(params: any): string {
+    console.log('original', params.value)
+    const value = parseFloat(params.value)
+    const num =
+      Math.abs(value) > 999
+        ? Math.sign(value) * parseFloat((Math.abs(value) / 1000).toFixed(1)) +
+          'k'
+        : Math.sign(value) * Math.abs(value)
+
+    return num.toString()
+  }
+
   public diffRenderer(params: any): string {
     return params.value
+  }
+
+  public cpcRenderer(params: any): string {
+    const value = params.value
+    const num = value.toFixed(2)
+
+    return num
   }
 }
 

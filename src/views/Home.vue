@@ -9,6 +9,7 @@
         :columnDefs="columnDefs"
         @grid-ready="onGridReady"
         @cell-clicked="onCellClicked"
+        @row-clicked="onRowClicked"
         :gridOptions="gridOptions"
         :defaultColDef="defaultColDef"
         :headerHeight="headerHeight"
