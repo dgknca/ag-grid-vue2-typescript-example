@@ -12,15 +12,7 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
   headerHeight: any = null
   icons: any = null
   pageSize = '20'
-
-  listOfKeywords = 'http://95.217.76.23:5454/api/list_keyword_info_for_domain'
-  listEx =
-    '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"100", "page": 3 }'
-
-  gridOptions: any = {
-    pagination: true
-    // paginationAutoPageSize: true
-  }
+  pagination = true
 
   beforeMount() {
     this.columnDefs = [
@@ -105,18 +97,16 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
         '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#E3E3FC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#9999CC" /></svg>'
     }
 
-    this.fetchData(this.listOfKeywords, this.listEx).then(
-      res => (this.rowData = res)
-    )
+    this.fetchData(
+      'http://95.217.76.23:5454/api/list_keyword_info_for_domain',
+      '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"100", "page": 3 }'
+    ).then(res => (this.rowData = res))
   }
 
   public onGridReady(params: any): void {
     this.gridApi = params.api
     this.gridApi.sizeColumnsToFit()
   }
-
-  searchVolumeOfKeywords =
-    'http://95.217.76.23:5454/api/get_specific_search_volume'
 
   public onCellClicked(event: any): void {
     if (
@@ -126,10 +116,8 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
       this.$store.state.clickedKeywords = event.node.data.keyword
 
       this.fetchData(
-        this.searchVolumeOfKeywords,
-        '{"country": "tr", "lang": "tr", "keyword": "' +
-          event.node.data.keyword +
-          '" }'
+        'http://95.217.76.23:5454/api/get_specific_search_volume',
+        `{"country": "tr", "lang": "tr", "keyword": "${event.node.data.keyword}" }`
       ).then(res => {
         this.$store.commit('setSeries', res)
         this.$store.commit('setCategories', res)

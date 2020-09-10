@@ -1,20 +1,13 @@
 <template>
   <div>
-    <apexchart
-      width="610"
-      height="180"
-      type="bar"
-      :options="options"
-      :series="series"
-      ref="realtimeChart"
-    ></apexchart>
+    <apexchart width="610" height="180" type="bar" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
 <script lang="ts">
-import VueApexCharts from 'vue-apexcharts'
-import ApexChartProperties from '@/mixins/apexChartProperties.ts'
-import { Component, Mixins } from 'vue-property-decorator'
+import { Component, Mixins } from "vue-property-decorator";
+import VueApexCharts from "vue-apexcharts";
+import ApexChartProperties from "@/mixins/apexChartProperties.ts";
 
 @Component({
   components: {

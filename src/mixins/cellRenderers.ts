@@ -1,6 +1,7 @@
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Mixins } from 'vue-property-decorator'
 import SVGVolume from '@/svg/svg-volume.vue'
 import SVGStar from '@/svg/svg-star.vue'
+import NumFormetter from '@/mixins/numFormatter.ts'
 
 @Component({
   components: {
@@ -8,12 +9,11 @@ import SVGStar from '@/svg/svg-star.vue'
     SVGStar
   }
 })
-class CellRenderers extends Vue {
+class CellRenderers extends Mixins(NumFormetter) {
   public searchVolumeRenderer(params: any): string {
     const value = params.value
     const ComponentClass = Vue.extend(SVGVolume)
     const icon = new ComponentClass().$mount().$el
-
     const wrapper = document.createElement('span')
     wrapper.appendChild(icon)
 
@@ -37,7 +37,6 @@ class CellRenderers extends Vue {
     const ComponentClass = Vue.extend(SVGStar)
     const icon = new ComponentClass().$mount().$el
     const value = params.value
-
     const transporterDiv = document.createElement('div')
     transporterDiv.appendChild(icon)
 
@@ -45,14 +44,7 @@ class CellRenderers extends Vue {
   }
 
   public pixelRankRenderer(params: any): string {
-    const value = parseFloat(params.value)
-    const num =
-      Math.abs(value) > 999
-        ? Math.sign(value) * parseFloat((Math.abs(value) / 1000).toFixed(1)) +
-          'k'
-        : Math.sign(value) * Math.abs(value)
-
-    return num.toString()
+    return this.numFormatter(params.value)
   }
 
   public diffRenderer(params: any): string {
@@ -64,10 +56,7 @@ class CellRenderers extends Vue {
   }
 
   public cpcRenderer(params: any): string {
-    const value = params.value
-    const num = value.toFixed(2)
-
-    return num
+    return params.value.toFixed(2)
   }
 }
 

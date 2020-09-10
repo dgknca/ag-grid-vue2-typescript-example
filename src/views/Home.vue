@@ -38,13 +38,3 @@ h1 {
   font-size: 24px;
 }
 </style>
-
-<style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-active /* .fade-leave-active in <2.1.8 */ {
-  opacity: 0;
-}
-</style>

@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import ApexChart from '@/components/ApexChart.vue'
-import SVGClose from '@/svg/svg-close.vue'
+import { Component, Vue } from "vue-property-decorator";
+import ApexChart from "@/components/ApexChart.vue";
+import SVGClose from "@/svg/svg-close.vue";
 
 @Component({
   components: {
@@ -25,14 +25,12 @@ import SVGClose from '@/svg/svg-close.vue'
   }
 })
 export default class Modal extends Vue {
-  // keywords!: string
-
   public closeModal(): void {
-    this.$store.state.isChartModalActive = false
+    this.$store.state.isChartModalActive = false;
   }
 
   public get keywords(): string {
-    return this.$store.state.clickedKeywords
+    return this.$store.state.clickedKeywords;
   }
 }
 </script>
@@ -52,7 +50,7 @@ export default class Modal extends Vue {
 
 .modal {
   display: inline-block;
-  background: #fff;
+  background: var(--white);
   padding: 24px;
   margin-top: 50px;
   border-radius: var(--container-radius);
