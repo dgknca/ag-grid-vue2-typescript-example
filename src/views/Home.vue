@@ -16,19 +16,25 @@
         :icons="icons"
       ></ag-grid-vue>
     </div>
+
+    <Modal></Modal>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Mixins } from "vue-property-decorator";
-import AgGridProperties from "@/mixins/agGridProperties.ts";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+
 import { AgGridVue } from "ag-grid-vue";
+import Modal from "@/components/Modal.vue";
+
+import AgGridProperties from "@/mixins/agGridProperties.ts";
 
 @Component({
   components: {
-    AgGridVue
+    AgGridVue,
+    Modal
   }
 })
 export default class Home extends Mixins(AgGridProperties) {}

@@ -1,9 +1,11 @@
 import { Component, Vue, Mixins } from 'vue-property-decorator'
 import CellRenderers from '@/mixins/cellRenderers.ts'
-import axios from 'axios'
+import FetchData from '@/mixins/fetchData.ts'
+// import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
+// const apexStore = namespace('apexStore')
 
 @Component
-class AgGridProperties extends Mixins(CellRenderers) {
+class AgGridProperties extends Mixins(CellRenderers, FetchData) {
   columnDefs: any = null
   rowData: any = null
   gridApi: any = null
@@ -11,6 +13,13 @@ class AgGridProperties extends Mixins(CellRenderers) {
   defaultColDef: any = null
   headerHeight: any = null
   icons: any = null
+
+  // @apexStore.Mutation
+  // public setSeries!: (newName: any) => void
+
+  listOfKeywords = 'http://95.217.76.23:5454/api/list_keyword_info_for_domain'
+  listEx =
+    '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"60", "page": 3 }'
 
   gridOptions: any = {
     pagination: true,
@@ -104,25 +113,9 @@ class AgGridProperties extends Mixins(CellRenderers) {
         '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#E3E3FC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#9999CC" /></svg>'
     }
 
-    this.fetchData()
-  }
-
-  listOfKeywords = 'http://95.217.76.23:5454/api/list_keyword_info_for_domain'
-  listEx =
-    '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"60", "page": 3 }'
-  searchVolumeOfKeywords =
-    'http://95.217.76.23:5454/api/get_specific_search_volume'
-
-  public fetchData(): void {
-    axios
-      .post(this.listOfKeywords, this.listEx)
-      .then(response => {
-        console.log(response.data)
-        this.rowData = response.data
-      })
-      .catch(function(error) {
-        console.log(error)
-      })
+    this.fetchData(this.listOfKeywords, this.listEx).then(
+      res => (this.rowData = res)
+    )
   }
 
   public onGridReady(params: any): void {
@@ -137,8 +130,19 @@ class AgGridProperties extends Mixins(CellRenderers) {
     // this.gridApi.ensureIndexVisible(event.rowIndex, 'top')
   }
 
+  searchVolumeOfKeywords =
+    'http://95.217.76.23:5454/api/get_specific_search_volume'
+
   public onRowClicked(event: any): void {
-    console.log(event.node)
+    this.fetchData(
+      this.searchVolumeOfKeywords,
+      '{"country": "tr", "lang": "tr", "keyword": "' +
+        event.node.data.keyword +
+        '" }'
+    ).then(res => {
+      this.$store.commit('setSeries', res)
+      this.$store.commit('setCategories', res)
+    })
   }
 }
 
