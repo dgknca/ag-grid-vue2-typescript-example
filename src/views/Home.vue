@@ -4,7 +4,9 @@
       <h1>Zeo Interview</h1>
       <AgGrid />
     </div>
-    <Modal v-show="this.$store.state.isChartModalActive" />
+    <transition name="fade">
+      <Modal v-show="this.$store.state.isChartModalActive" />
+    </transition>
   </div>
 </template>
 
@@ -34,5 +36,15 @@ h1 {
   color: var(--gray4);
   font-weight: 600;
   font-size: 24px;
+}
+</style>
+
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-active /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
 }
 </style>

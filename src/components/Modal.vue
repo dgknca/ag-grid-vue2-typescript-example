@@ -2,6 +2,7 @@
   <div class="overlay" @click.self="closeModal">
     <div class="modal">
       <h2>SEARCH VOLUME</h2>
+      <p>{{ keywords }}</p>
       <div class="close" @click="closeModal">
         <SVGClose />
       </div>
@@ -24,8 +25,14 @@ import SVGClose from '@/svg/svg-close.vue'
   }
 })
 export default class Modal extends Vue {
+  // keywords!: string
+
   public closeModal(): void {
     this.$store.state.isChartModalActive = false
+  }
+
+  public get keywords(): string {
+    return this.$store.state.clickedKeywords
   }
 }
 </script>
@@ -46,7 +53,7 @@ export default class Modal extends Vue {
 .modal {
   display: inline-block;
   background: #fff;
-  padding: 30px;
+  padding: 24px;
   margin-top: 50px;
   border-radius: var(--container-radius);
   box-shadow: var(--container-shadow);
@@ -55,8 +62,8 @@ export default class Modal extends Vue {
 
 .close {
   position: absolute;
-  top: 30px;
-  right: 30px;
+  top: 24px;
+  right: 24px;
   cursor: pointer;
 }
 
@@ -70,5 +77,11 @@ h2 {
   font-size: 16px;
   margin: 0;
   padding: 0;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gray4);
 }
 </style>

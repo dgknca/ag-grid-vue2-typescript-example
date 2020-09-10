@@ -65,6 +65,11 @@
         text-align: center;
     }
 
+    .grid-cell-keywords,
+    .grid-cell-searchvolume {
+        cursor: pointer;
+    }
+
     .grid-cell-searchvolume {
         span svg {
             margin-right: 15px;
@@ -146,7 +151,7 @@
 
 
 
-// .ag-cell-focus,
-// .ag-cell {
-//     border: none !important;
-// }
+.ag-cell-focus,
+.ag-cell {
+    border: none !important;
+}

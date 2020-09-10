@@ -45,7 +45,6 @@ class CellRenderers extends Vue {
   }
 
   public pixelRankRenderer(params: any): string {
-    console.log('original', params.value)
     const value = parseFloat(params.value)
     const num =
       Math.abs(value) > 999

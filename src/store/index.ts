@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import ApexStore from '@/store/module/apexStore'
 
 Vue.use(Vuex)
 
@@ -13,7 +12,8 @@ export default new Vuex.Store({
       }
     ],
     categories: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // to avoid console errors
-    isChartModalActive: false
+    isChartModalActive: false,
+    clickedKeywords: ''
   },
   getters: {
     series(state) {
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       const datesArr = newCategories.map((p: any) => p.date)
 
       datesArr.forEach((p: any) => {
-        console.log(p.slice(5, 7)) //"2018-08-01" => 08
+        // console.log(p.slice(5, 7)) //"2018-08-01" => 08
         if (p.slice(5, 7) == '01') {
           categoriesArr.push('JAN')
         } else if (p.slice(5, 7) == '02') {
@@ -71,7 +71,4 @@ export default new Vuex.Store({
     }
   },
   actions: {}
-  // modules: {
-  //   ApexStore
-  // }
 })

@@ -31,7 +31,8 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
         width: 150,
         suppressSizeToFit: true,
         pinned: 'left',
-        sortable: false
+        sortable: false,
+        cellClass: 'grid-cell-keywords'
       },
       {
         headerName: 'search volume',
@@ -118,26 +119,27 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
     this.gridApi.sizeColumnsToFit()
   }
 
-  public onCellClicked(event: any): void {
-    console.log('onCellClicked: ' + event.rowIndex + ' ' + event.colDef.field)
-    console.log('cell clicked')
-    // this.gridApi.ensureIndexVisible(event.rowIndex, 'top')
-  }
-
   searchVolumeOfKeywords =
     'http://95.217.76.23:5454/api/get_specific_search_volume'
 
-  public onRowClicked(event: any): void {
-    this.fetchData(
-      this.searchVolumeOfKeywords,
-      '{"country": "tr", "lang": "tr", "keyword": "' +
-        event.node.data.keyword +
-        '" }'
-    ).then(res => {
-      this.$store.commit('setSeries', res)
-      this.$store.commit('setCategories', res)
-      this.$store.state.isChartModalActive = true
-    })
+  public onCellClicked(event: any): void {
+    if (
+      event.column.colId == 'keyword' ||
+      event.column.colId == 'avgSearchVolume'
+    ) {
+      this.$store.state.clickedKeywords = event.node.data.keyword
+
+      this.fetchData(
+        this.searchVolumeOfKeywords,
+        '{"country": "tr", "lang": "tr", "keyword": "' +
+          event.node.data.keyword +
+          '" }'
+      ).then(res => {
+        this.$store.commit('setSeries', res)
+        this.$store.commit('setCategories', res)
+        this.$store.state.isChartModalActive = true
+      })
+    }
   }
 }
 
