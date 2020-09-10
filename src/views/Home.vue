@@ -11,9 +11,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import Modal from '@/components/Modal.vue'
-import AgGrid from '@/components/AgGrid.vue'
+import { Component, Vue } from "vue-property-decorator";
+import Modal from "@/components/Modal.vue";
+import AgGrid from "@/components/AgGrid.vue";
 
 @Component({
   components: {
@@ -26,7 +26,7 @@ export default class Home extends Vue {}
 
 <style lang="scss" scoped>
 .grid-container {
-  background: #fff;
+  background: var(--white);
   padding: 20px;
   border-radius: var(--container-radius);
   box-shadow: var(--container-shadow);

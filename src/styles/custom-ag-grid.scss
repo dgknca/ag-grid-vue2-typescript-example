@@ -8,6 +8,7 @@
     .ag-root-wrapper {
         border: none;
         border-radius: 3px;
+        background: var(--white);
     }
 
     .ag-header {
@@ -31,9 +32,10 @@
         height: var(--cell-height);
         border: none !important;
         border-bottom: 1px solid var(--border-color) !important;
+        background: var(--white);
 
         &-odd {
-            background: #fff;
+            background: var(--white);
         }
 
         &-hover {
@@ -97,14 +99,14 @@
 
         &.grid-cell-diffRank {
             span {
-                background: rgba(#21d99b, 0.1);
+                background: var(--green-alpha-10);
                 color: var(--green);
             }
         }
 
         &.grid-cell-diffPixelRank {
             span {
-                background: rgba(#ff4d79, 0.1);
+                background: var(--red-alpha-10);
                 color: var(--red);
             }
         }
@@ -120,6 +122,7 @@
 
     a {
         text-decoration: none;
+        color: var(--purple);
     }
 
     .ag-header-icon {
@@ -145,4 +148,71 @@
 // hide default pagination
 .ag-paging-panel {
     display: none;
+}
+
+// custom pagination
+
+.custom-pagination {
+    width: 100%;
+    height: var(--pagination-btn-height);
+    display: flex;
+    justify-content: flex-end;
+    user-select: none;
+    margin-top: 20px;
+
+    .pg-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .pg-summary-panel {
+        display: flex;
+        align-items: center;
+    }
+
+    .pg-btn {
+        height: var(--pagination-btn-height);
+        width: var(--pagination-btn-height);
+        border: 1px solid var(--gray2);
+        color: var(--gray3);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 3px;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 14px;
+    }
+
+    .pg-prev,
+    .pg-next {
+        cursor: pointer;
+    }
+
+    .pg-current {
+        width: 40px;
+        border-color: var(--shade2);
+        color: var(--gray4);
+    }
+
+    .pg-row-summary-panel {
+        color: var(--gray4);
+        font-weight: 500;
+        font-size: 14px;
+        padding-left: 10px;
+    }
+
+    .pg-select {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    .pg-select-label {
+        font-size: 14px;
+        color: var(--gray4);
+        font-weight: 500;
+        margin-right: 10px;
+    }
 }
