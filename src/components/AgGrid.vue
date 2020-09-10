@@ -52,14 +52,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Mixins } from "vue-property-decorator";
-import { AgGridVue } from "ag-grid-vue";
-import AgGridProperties from "@/mixins/agGridProperties.ts";
-import vSelect from "vue-select";
+import { Component, Vue, Mixins } from 'vue-property-decorator'
+import { AgGridVue } from 'ag-grid-vue'
+import AgGridProperties from '@/mixins/agGridProperties.ts'
+import vSelect from 'vue-select'
 
-import SVGChevronLeft from "@/svg/svg-chevron-left.vue";
-import SVGChevronRight from "@/svg/svg-chevron-right.vue";
-import SVGChevronDown from "@/svg/svg-chevron-down.vue";
+import SVGChevronLeft from '@/svg/svg-chevron-left.vue'
+import SVGChevronRight from '@/svg/svg-chevron-right.vue'
+import SVGChevronDown from '@/svg/svg-chevron-down.vue'
 
 @Component({
   components: {
@@ -72,38 +72,38 @@ import SVGChevronDown from "@/svg/svg-chevron-down.vue";
 })
 export default class Home extends Mixins(AgGridProperties) {
   public onBtPrev(): void {
-    this.gridApi.paginationGoToPreviousPage();
+    this.gridApi.paginationGoToPreviousPage()
   }
   public onBtNext(): void {
-    this.gridApi.paginationGoToNextPage();
+    this.gridApi.paginationGoToNextPage()
   }
 
   public onPaginationChanged(): void {
-    console.log("onPaginationPageLoaded");
+    console.log('onPaginationPageLoaded')
     if (this.gridApi) {
-      this.setText("#currentPage", this.gridApi.paginationGetCurrentPage() + 1);
-      this.setText("#totalPage", this.gridApi.paginationGetTotalPages());
+      this.setText('#currentPage', this.gridApi.paginationGetCurrentPage() + 1)
+      this.setText('#totalPage', this.gridApi.paginationGetTotalPages())
     }
   }
 
   public get currentpage(): string {
-    return this.gridApi.paginationGetCurrentPage() + 1;
+    return this.gridApi.paginationGetCurrentPage() + 1
   }
 
   public setText(selector: any, text: string): void {
-    document.querySelector(selector).innerHTML = text;
+    document.querySelector(selector).innerHTML = text
   }
 
   public pageSizeChanged(): void {
-    this.gridApi.paginationSetPageSize(Number(this.pageSize));
+    this.gridApi.paginationSetPageSize(Number(this.pageSize))
   }
 
-  pageSelectOptions = [10, 20, 30];
+  pageSelectOptions = [10, 20, 30]
   pageSelectAttributes: any = {
-    ref: "openIndicator",
-    role: "presentation",
-    class: "vs__open-indicator"
-  };
+    ref: 'openIndicator',
+    role: 'presentation',
+    class: 'vs__open-indicator'
+  }
 }
 </script>
 
