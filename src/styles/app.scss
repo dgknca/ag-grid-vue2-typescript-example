@@ -1,6 +1,8 @@
 @import "./variables";
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import "vue-select/src/scss/vue-select.scss";
 @import "./base";
-@import "./ag-grid-custom";
-@import "./apex-chart-custom";
+@import "./custom-ag-grid";
+@import "./custom-apex-chart";
+@import "./custom-vue-select";

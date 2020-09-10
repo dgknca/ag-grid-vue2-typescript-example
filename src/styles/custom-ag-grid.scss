@@ -133,20 +133,6 @@
     .ag-root-wrapper-body {
         border: 1px solid var(--border-color);
     }
-
-    .ag-paging-panel .ag-icon {
-        padding: 5px 8px;
-        border: 1px solid var(--gray2);
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .ag-paging-button-wrapper[ref="btFirst"],
-    .ag-paging-button-wrapper[ref="btLast"] {
-        display: none;
-    }
 }
 
 
@@ -154,4 +140,9 @@
 .ag-cell-focus,
 .ag-cell {
     border: none !important;
+}
+
+// hide default pagination
+.ag-paging-panel {
+    display: none;
 }

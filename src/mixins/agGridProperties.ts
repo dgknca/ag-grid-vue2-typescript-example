@@ -1,4 +1,4 @@
-import { Component, Vue, Mixins } from 'vue-property-decorator'
+import { Component, Mixins } from 'vue-property-decorator'
 import CellRenderers from '@/mixins/cellRenderers.ts'
 import FetchData from '@/mixins/fetchData.ts'
 
@@ -11,14 +11,14 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
   defaultColDef: any = null
   headerHeight: any = null
   icons: any = null
+  pageSize = '20'
 
   listOfKeywords = 'http://95.217.76.23:5454/api/list_keyword_info_for_domain'
   listEx =
     '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"100", "page": 3 }'
 
   gridOptions: any = {
-    pagination: true,
-    paginationPageSize: 20
+    pagination: true
     // paginationAutoPageSize: true
   }
 
@@ -97,10 +97,6 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
     this.headerHeight = 38
 
     this.icons = {
-      previous:
-        '<span class="ag-icon"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 13L1 7L7 1" stroke="#9999CC" stroke-linecap="round" /></svg></span>',
-      next:
-        '<span class="ag-icon"><svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 13L7 7L1 1" stroke="#9999CC" stroke-linecap="round" /></svg></span>',
       sortUnSort:
         '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#E3E3FC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#E3E3FC" /></svg>',
       sortAscending:
