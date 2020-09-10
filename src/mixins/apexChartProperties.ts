@@ -1,38 +1,15 @@
 import { Component, Mixins, Watch } from 'vue-property-decorator'
 import FetchData from '@/mixins/fetchData.ts'
-// import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
-// const apexStore = namespace('apexStore')
 
 @Component
 class ApexChartProperties extends Mixins(FetchData) {
-  // TODO: Vuex
-
   series: any = this.getseries
-
-  @Watch('getseries')
-  updateSeries(newVal: string) {
-    this.series = newVal
-  }
-
-  @Watch('getcategories')
-  updateCategories(newVal: string) {
-    this.options = {
-      xaxis: {
-        categories: newVal
-      }
-    }
-  }
-
-  public get getseries(): any {
-    return this.$store.getters.series
-  }
-  public get getcategories(): any {
-    return this.$store.getters.categories
-  }
-
   options: any = {
     chart: {
-      id: 'vuechart-example'
+      id: 'vuechart-example',
+      toolbar: {
+        show: false
+      }
     },
     xaxis: {
       categories: this.getcategories,
@@ -67,8 +44,26 @@ class ApexChartProperties extends Mixins(FetchData) {
     }
   }
 
-  //   @apexStore.Getter
-  //   public getSeries!: any
+  @Watch('getseries')
+  updateSeries(newVal: string) {
+    this.series = newVal
+  }
+
+  @Watch('getcategories')
+  updateCategories(newVal: string) {
+    this.options = {
+      xaxis: {
+        categories: newVal
+      }
+    }
+  }
+
+  public get getseries(): any {
+    return this.$store.getters.series
+  }
+  public get getcategories(): any {
+    return this.$store.getters.categories
+  }
 }
 
 export default ApexChartProperties

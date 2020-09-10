@@ -9,10 +9,11 @@ export default new Vuex.Store({
     series: [
       {
         name: 'volumes',
-        data: null
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // to avoid console errors
       }
     ],
-    categories: null
+    categories: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // to avoid console errors
+    isChartModalActive: false
   },
   getters: {
     series(state) {
@@ -24,7 +25,6 @@ export default new Vuex.Store({
   },
   mutations: {
     setSeries(state, newSeries) {
-      console.log(newSeries)
       const newData = newSeries.map((p: any) => p.volume)
       state.series = [
         {
@@ -39,7 +39,7 @@ export default new Vuex.Store({
       const datesArr = newCategories.map((p: any) => p.date)
 
       datesArr.forEach((p: any) => {
-        console.log(p.slice(5, 7)) //"2018-08-01"
+        console.log(p.slice(5, 7)) //"2018-08-01" => 08
         if (p.slice(5, 7) == '01') {
           categoriesArr.push('JAN')
         } else if (p.slice(5, 7) == '02') {
@@ -67,7 +67,6 @@ export default new Vuex.Store({
         }
       })
 
-      console.log('şuann', categoriesArr)
       state.categories = categoriesArr
     }
   },

@@ -1,8 +1,6 @@
 import { Component, Vue, Mixins } from 'vue-property-decorator'
 import CellRenderers from '@/mixins/cellRenderers.ts'
 import FetchData from '@/mixins/fetchData.ts'
-// import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
-// const apexStore = namespace('apexStore')
 
 @Component
 class AgGridProperties extends Mixins(CellRenderers, FetchData) {
@@ -14,12 +12,9 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
   headerHeight: any = null
   icons: any = null
 
-  // @apexStore.Mutation
-  // public setSeries!: (newName: any) => void
-
   listOfKeywords = 'http://95.217.76.23:5454/api/list_keyword_info_for_domain'
   listEx =
-    '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"60", "page": 3 }'
+    '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"100", "page": 3 }'
 
   gridOptions: any = {
     pagination: true,
@@ -125,7 +120,6 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
 
   public onCellClicked(event: any): void {
     console.log('onCellClicked: ' + event.rowIndex + ' ' + event.colDef.field)
-    // console.log(event.value.split(' '))
     console.log('cell clicked')
     // this.gridApi.ensureIndexVisible(event.rowIndex, 'top')
   }
@@ -142,6 +136,7 @@ class AgGridProperties extends Mixins(CellRenderers, FetchData) {
     ).then(res => {
       this.$store.commit('setSeries', res)
       this.$store.commit('setCategories', res)
+      this.$store.state.isChartModalActive = true
     })
   }
 }
