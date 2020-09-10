@@ -23,3 +23,14 @@ import ApexChartProperties from "@/mixins/apexChartProperties.ts";
 })
 export default class Modal extends Mixins(ApexChartProperties) {}
 </script>
+
+<style lang="scss" scoped>
+.modal {
+  display: inline-block;
+  background: #fff;
+  padding: 30px;
+  margin-top: 50px;
+  border-radius: var(--container-radius);
+  box-shadow: var(--container-shadow);
+}
+</style>

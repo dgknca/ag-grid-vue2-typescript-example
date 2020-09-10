@@ -1,4 +1,6 @@
+@import "./variables";
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 @import "./base";
 @import "./ag-grid-custom";
 @import "./apex-chart-custom";
-@import "./variables";

@@ -23,8 +23,8 @@
 
 <script lang="ts">
 import { Component, Vue, Mixins } from "vue-property-decorator";
-import "ag-grid-community/dist/styles/ag-grid.css";
-import "ag-grid-community/dist/styles/ag-theme-alpine.css";
+// import "ag-grid-community/dist/styles/ag-grid.css";
+// import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 import { AgGridVue } from "ag-grid-vue";
 import Modal from "@/components/Modal.vue";
@@ -44,8 +44,8 @@ export default class Home extends Mixins(AgGridProperties) {}
 .grid-container {
   background: #fff;
   padding: 20px;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(#31314d, 0.04);
+  border-radius: var(--container-radius);
+  box-shadow: var(--container-shadow);
 }
 
 h1 {
@@ -53,8 +53,4 @@ h1 {
   font-weight: 600;
   font-size: 24px;
 }
-</style>
-
-<style lang="scss">
-@import "../styles/app";
 </style>
