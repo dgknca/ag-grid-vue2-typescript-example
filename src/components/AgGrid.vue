@@ -17,6 +17,7 @@
     ></ag-grid-vue>
 
     <div class="custom-pagination">
+      <!-- <button class="export-csv-btn btn" @click="onBtnExport">Export as CSV</button> -->
       <div class="pg-content">
         <div class="pg-select">
           <div class="pg-select-label">Per page:</div>
@@ -55,12 +56,16 @@
 <script lang="ts">
 import { Component, Vue, Mixins } from "vue-property-decorator";
 import { AgGridVue } from "ag-grid-vue";
-import AgGridProperties from "@/mixins/agGridProperties.ts";
 import vSelect from "vue-select";
+
+import FetchData from "@/mixins/fetchData.ts";
+import NumFormetter from "@/mixins/numFormatter.ts";
 
 import SVGChevronLeft from "@/svg/svg-chevron-left.vue";
 import SVGChevronRight from "@/svg/svg-chevron-right.vue";
 import SVGChevronDown from "@/svg/svg-chevron-down.vue";
+import SVGVolume from "@/svg/svg-volume.vue";
+import SVGStar from "@/svg/svg-star.vue";
 
 @Component({
   components: {
@@ -68,10 +73,149 @@ import SVGChevronDown from "@/svg/svg-chevron-down.vue";
     SVGChevronLeft,
     SVGChevronRight,
     SVGChevronDown,
+    SVGVolume,
+    SVGStar,
     vSelect
   }
 })
-export default class Home extends Mixins(AgGridProperties) {
+export default class Home extends Mixins(FetchData, NumFormetter) {
+  columnDefs: any = null;
+  rowData: any = null;
+  gridApi: any = null;
+  columnApi: any = null;
+  defaultColDef: any = null;
+  headerHeight: any = null;
+  icons: any = null;
+  pageSize = "20";
+  pagination = true;
+
+  beforeMount() {
+    this.headerHeight = 38;
+
+    this.defaultColDef = {
+      editable: false,
+      sortable: true,
+      unSortIcon: true,
+      filter: false,
+      resizable: false,
+      minWidth: 110
+    };
+
+    this.columnDefs = [
+      {
+        headerName: "keywords",
+        headerClass: "header-text-left",
+        field: "keyword",
+        width: 150,
+        suppressSizeToFit: true,
+        pinned: "left",
+        sortable: false,
+        cellClass: "grid-cell-keywords"
+      },
+      {
+        headerName: "search volume",
+        field: "avgSearchVolume",
+        width: 170,
+        suppressSizeToFit: true,
+        cellRenderer: this.searchVolumeRenderer,
+        cellClass: "grid-cell-searchvolume"
+      },
+      {
+        headerName: "rank",
+        field: "rank",
+        cellRenderer: this.rankRenderer,
+        cellClass: "grid-cell-rank"
+      },
+      {
+        headerName: "change",
+        field: "diffRank",
+        cellRenderer: this.diffRenderer,
+        cellClass: "grid-cell-diff grid-cell-diffRank"
+      },
+      {
+        headerName: "px rank",
+        field: "pixelRank",
+        cellRenderer: this.pixelRankRenderer,
+        cellClass: "grid-cell-pixelRank"
+      },
+      {
+        headerName: "change",
+        field: "diffPixelRank",
+        cellRenderer: this.diffRenderer,
+        cellClass: "grid-cell-diff grid-cell-diffPixelRank"
+      },
+      {
+        headerName: "url page",
+        field: "landingPage",
+        sortable: false,
+        width: 300,
+        flex: 1,
+        suppressSizeToFit: true,
+        headerClass: "header-text-left",
+        cellRenderer: this.urlPageRenderer,
+        cellClass: "grid-cell-urlpage"
+      },
+      {
+        headerName: "cpc - $",
+        field: "cpc",
+        cellRenderer: this.cpcRenderer,
+        cellClass: "grid-cell-centered"
+      }
+    ];
+
+    this.icons = {
+      sortUnSort:
+        '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#E3E3FC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#E3E3FC" /></svg>',
+      sortAscending:
+        '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#9999CC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#E3E3FC" /></svg>',
+      sortDescending:
+        '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#E3E3FC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#9999CC" /></svg>'
+    };
+
+    this.fetchData(
+      "http://95.217.76.23:5454/api/list_keyword_info_for_domain",
+      '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"100", "page": 3 }'
+    ).then(res => (this.rowData = res));
+  }
+
+  public onGridReady(params: any): void {
+    this.gridApi = params.api;
+    this.gridApi.sizeColumnsToFit();
+  }
+
+  public onCellClicked(event: any): void {
+    if (
+      event.column.colId == "keyword" ||
+      event.column.colId == "avgSearchVolume"
+    ) {
+      this.$store.state.clickedKeywords = event.node.data.keyword;
+
+      this.fetchData(
+        "http://95.217.76.23:5454/api/get_specific_search_volume",
+        `{"country": "tr", "lang": "tr", "keyword": "${event.node.data.keyword}" }`
+      ).then(res => {
+        this.$store.commit("setSeries", res);
+        this.$store.commit("setCategories", res);
+        this.$store.state.isChartModalActive = true;
+      });
+    }
+  }
+
+  // public onBtnExport() {
+  //   this.gridApi.exportDataAsCsv({
+  //     suppressQuotes: 'none',
+  //     columnSeparator: 'none',
+  //     customHeader: 'none',
+  //     customFooter: 'none'
+  //   })
+  // }
+
+  /*
+  ======================
+    Custom Pagination
+  ======================
+  */
+
   public onBtPrev(): void {
     this.gridApi.paginationGoToPreviousPage();
   }
@@ -105,5 +249,80 @@ export default class Home extends Mixins(AgGridProperties) {
     role: "presentation",
     class: "vs__open-indicator"
   };
+
+  /*
+  ======================
+      Cell Renderers
+  ======================
+  */
+
+  public searchVolumeRenderer(params: any): string {
+    const value = params.value;
+    const ComponentClass = Vue.extend(SVGVolume);
+    const icon = new ComponentClass().$mount().$el;
+    const wrapper = document.createElement("span");
+    wrapper.appendChild(icon);
+
+    if (value < 1000) {
+      wrapper.classList.add("vol1");
+    } else if (value >= 1000 && value <= 10000) {
+      wrapper.classList.add("vol2");
+    } else if (value >= 10000 && value <= 50000) {
+      wrapper.classList.add("vol3");
+    } else if (value >= 50000 && value <= 100000) {
+      wrapper.classList.add("vol4");
+    }
+
+    const transporterDiv = document.createElement("div");
+    transporterDiv.appendChild(wrapper);
+
+    return transporterDiv.innerHTML + value;
+  }
+
+  public rankRenderer(params: any): string {
+    const ComponentClass = Vue.extend(SVGStar);
+    const icon = new ComponentClass().$mount().$el;
+    const value = params.value;
+    const transporterDiv = document.createElement("div");
+    transporterDiv.appendChild(icon);
+
+    return value + transporterDiv.innerHTML;
+  }
+
+  public pixelRankRenderer(params: any): string {
+    return this.numFormatter(params.value);
+  }
+
+  public diffRenderer(params: any): string {
+    return params.value;
+  }
+
+  public urlPageRenderer(params: any): string {
+    return `<a href="${params.value}" target="_blank">${params.value}</a>`;
+  }
+
+  public cpcRenderer(params: any): string {
+    return params.value.toFixed(2);
+  }
 }
 </script>
+
+<style lang="scss">
+// .btn {
+//   background: #fff;
+//   font-size: 14px;
+//   color: var(--gray4);
+//   font-weight: 500;
+//   border: 1px solid var(--gray2);
+//   border-radius: 4px;
+//   outline: none;
+//   box-shadow: none;
+//   cursor: pointer;
+
+//   &.export-csv-btn {
+//     height: var(--pagination-btn-height);
+//     padding: 0 10px;
+//     margin-right: auto;
+//   }
+// }
+</style>
