@@ -17,7 +17,6 @@
     ></ag-grid-vue>
 
     <div class="custom-pagination">
-      <!-- <button class="export-csv-btn btn" @click="onBtnExport">Export as CSV</button> -->
       <div class="pg-content">
         <div class="pg-select">
           <div class="pg-select-label">Per page:</div>
@@ -133,8 +132,7 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
         suppressSizeToFit: true,
         cellRenderer: this.searchVolumeRenderer,
         cellClass: 'grid-cell-searchvolume',
-        filter: 'agNumberColumnFilter',
-        filterOptions: ['greaterThanOrEqual']
+        filter: 'agNumberColumnFilter'
       },
       {
         headerName: 'rank',
@@ -243,15 +241,6 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
     suppressAndOrCondition: true
   }
 
-  // public onBtnExport() {
-  //   this.gridApi.exportDataAsCsv({
-  //     suppressQuotes: 'none',
-  //     columnSeparator: 'none',
-  //     customHeader: 'none',
-  //     customFooter: 'none'
-  //   })
-  // }
-
   /*
   ======================
     Custom Pagination
@@ -349,22 +338,4 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
 }
 </script>
 
-<style lang="scss">
-// .btn {
-//   background: #fff;
-//   font-size: 14px;
-//   color: var(--gray4);
-//   font-weight: 500;
-//   border: 1px solid var(--gray2);
-//   border-radius: 4px;
-//   outline: none;
-//   box-shadow: none;
-//   cursor: pointer;
-
-//   &.export-csv-btn {
-//     height: var(--pagination-btn-height);
-//     padding: 0 10px;
-//     margin-right: auto;
-//   }
-// }
-</style>
+<style lang="scss"></style>

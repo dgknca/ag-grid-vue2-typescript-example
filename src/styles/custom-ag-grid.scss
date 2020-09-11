@@ -136,6 +136,11 @@
     .ag-root-wrapper-body {
         border: 1px solid var(--border-color);
     }
+
+    .ag-header-row:not(:first-child) .ag-header-cell,
+    .ag-header-row:not(:first-child) .ag-header-group-cell.ag-header-group-cell-with-group {
+        border-top-color: var(--border-color);
+    }
 }
 
 
