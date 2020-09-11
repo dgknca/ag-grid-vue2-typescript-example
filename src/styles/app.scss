@@ -1,6 +1,6 @@
 @import "./variables";
-@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
-@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+@import "./../node_modules/@ag-grid-community/core/dist/styles/ag-grid.min.css";
+@import "./../node_modules/@ag-grid-community/core/dist/styles/ag-theme-alpine.min.css";
 @import "vue-select/src/scss/vue-select.scss";
 @import "./base";
 @import "./transitions";

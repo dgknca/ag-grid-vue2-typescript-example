@@ -2,7 +2,11 @@
   <div>
     <nav class="nav">
       <div class="nav-wrp">
-        <div class="dark-mode-btn" @click="toggleDarkMode" :class="{ active: isActive }">
+        <div
+          class="dark-mode-btn"
+          @click="toggleDarkMode"
+          :class="{ active: isActive }"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -23,19 +27,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class Nav extends Vue {
-  isActive = false;
+  isActive = false
 
   private toggleDarkMode(e: any): void {
-    this.isActive = !this.isActive;
+    this.isActive = !this.isActive
 
-    const docEl = document.documentElement;
-    docEl.getAttribute("dark") == "true"
-      ? docEl.setAttribute("dark", "false")
-      : docEl.setAttribute("dark", "true");
+    const docEl = document.documentElement
+    docEl.getAttribute('dark') == 'true'
+      ? docEl.setAttribute('dark', 'false')
+      : docEl.setAttribute('dark', 'true')
   }
 }
 </script>
