@@ -60,23 +60,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Mixins } from "vue-property-decorator";
-import { AgGridVue } from "@ag-grid-community/vue";
-import { LicenseManager } from "@ag-grid-enterprise/core";
-import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
-import { SetFilterModule } from "@ag-grid-enterprise/set-filter";
-import { MenuModule } from "@ag-grid-enterprise/menu";
-import { FiltersToolPanelModule } from "@ag-grid-enterprise/filter-tool-panel";
-import vSelect from "vue-select";
+import { Component, Vue, Mixins } from 'vue-property-decorator'
+import { AgGridVue } from '@ag-grid-community/vue'
+import { LicenseManager } from '@ag-grid-enterprise/core'
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model'
+import { SetFilterModule } from '@ag-grid-enterprise/set-filter'
+import { MenuModule } from '@ag-grid-enterprise/menu'
+import { FiltersToolPanelModule } from '@ag-grid-enterprise/filter-tool-panel'
+import vSelect from 'vue-select'
 
-import FetchData from "@/mixins/fetchData.ts";
-import NumFormetter from "@/mixins/numFormatter.ts";
+import FetchData from '@/mixins/fetchData.ts'
+import NumFormetter from '@/mixins/numFormatter.ts'
 
-import SVGChevronLeft from "@/svg/svg-chevron-left.vue";
-import SVGChevronRight from "@/svg/svg-chevron-right.vue";
-import SVGChevronDown from "@/svg/svg-chevron-down.vue";
-import SVGVolume from "@/svg/svg-volume.vue";
-import SVGStar from "@/svg/svg-star.vue";
+import SVGChevronLeft from '@/svg/svg-chevron-left.vue'
+import SVGChevronRight from '@/svg/svg-chevron-right.vue'
+import SVGChevronDown from '@/svg/svg-chevron-down.vue'
+import SVGVolume from '@/svg/svg-volume.vue'
+import SVGStar from '@/svg/svg-star.vue'
 
 @Component({
   components: {
@@ -90,24 +90,25 @@ import SVGStar from "@/svg/svg-star.vue";
   }
 })
 export default class Home extends Mixins(FetchData, NumFormetter) {
-  columnDefs: any = null;
-  rowData: any = null;
-  gridApi: any = null;
-  columnApi: any = null;
-  defaultColDef: any = null;
-  headerHeight: any = null;
-  icons: any = null;
-  pageSize = "20";
-  pagination = true;
+  columnDefs: any = null
+  rowData: any = null
+  gridApi: any = null
+  columnApi: any = null
+  defaultColDef: any = null
+  headerHeight: any = null
+  icons: any = null
+  pageSize = '20'
+  pagination = true
   modules = [
     ClientSideRowModelModule,
     SetFilterModule,
     MenuModule,
     FiltersToolPanelModule
-  ];
+  ]
+  inputText = ''
 
   beforeMount() {
-    this.headerHeight = 38;
+    this.headerHeight = 38
 
     this.defaultColDef = {
       editable: false,
@@ -117,84 +118,84 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
       minWidth: 110,
       floatingFilter: true
       // filterOptions: 'contains'
-    };
+    }
 
     this.columnDefs = [
       {
-        headerName: "keywords",
-        headerClass: "header-text-left",
-        field: "keyword",
+        headerName: 'keywords',
+        headerClass: 'header-text-left',
+        field: 'keyword',
         width: 150,
         suppressSizeToFit: true,
-        pinned: "left",
+        pinned: 'left',
         sortable: false,
-        cellClass: "grid-cell-keywords",
-        filter: "agTextColumnFilter",
+        cellClass: 'grid-cell-keywords',
+        filter: 'agTextColumnFilter',
         filterParams: this.searchFilterParams
       },
       {
-        headerName: "search volume",
-        field: "avgSearchVolume",
+        headerName: 'search volume',
+        field: 'avgSearchVolume',
         width: 170,
         suppressSizeToFit: true,
         cellRenderer: this.searchVolumeRenderer,
-        cellClass: "grid-cell-searchvolume",
-        filter: "agNumberColumnFilter"
+        cellClass: 'grid-cell-searchvolume',
+        filter: 'agNumberColumnFilter'
       },
       {
-        headerName: "rank",
-        field: "rank",
+        headerName: 'rank',
+        field: 'rank',
         cellRenderer: this.rankRenderer,
-        cellClass: "grid-cell-rank",
-        filter: "agNumberColumnFilter",
-        filterOptions: "greaterThan"
+        cellClass: 'grid-cell-rank',
+        filter: 'agNumberColumnFilter',
+        filterOptions: 'greaterThan'
       },
       {
-        headerName: "change",
-        field: "diffRank",
+        headerName: 'change',
+        field: 'diffRank',
         cellRenderer: this.diffRenderer,
-        cellClass: "grid-cell-diff grid-cell-diffRank",
-        filter: "agNumberColumnFilter",
-        filterOptions: "greaterThan"
+        cellClass: 'grid-cell-diff grid-cell-diffRank',
+        filter: 'agNumberColumnFilter',
+        filterOptions: 'greaterThan'
       },
       {
-        headerName: "px rank",
-        field: "pixelRank",
+        headerName: 'px rank',
+        field: 'pixelRank',
         cellRenderer: this.pixelRankRenderer,
-        cellClass: "grid-cell-pixelRank",
-        filter: "agNumberColumnFilter",
-        filterOptions: "greaterThan"
+        cellClass: 'grid-cell-pixelRank',
+        filter: 'agNumberColumnFilter',
+        filterOptions: 'greaterThan'
       },
       {
-        headerName: "change",
-        field: "diffPixelRank",
+        headerName: 'change',
+        field: 'diffPixelRank',
         cellRenderer: this.diffRenderer,
-        cellClass: "grid-cell-diff grid-cell-diffPixelRank",
-        filter: "agNumberColumnFilter",
-        filterOptions: "greaterThan"
+        cellClass: 'grid-cell-diff grid-cell-diffPixelRank',
+        filter: 'agNumberColumnFilter',
+        filterOptions: 'greaterThan'
       },
       {
-        headerName: "url page",
-        field: "landingPage",
+        headerName: 'url page',
+        field: 'landingPage',
         sortable: false,
         width: 300,
         flex: 1,
         suppressSizeToFit: true,
-        headerClass: "header-text-left",
+        headerClass: 'header-text-left',
         cellRenderer: this.urlPageRenderer,
-        cellClass: "grid-cell-urlpage",
-        filter: "agTextColumnFilter",
+        cellClass: 'grid-cell-urlpage',
+        filter: 'agTextColumnFilter',
         filterParams: this.searchFilterParams
       },
       {
-        headerName: "cpc - $",
-        field: "cpc",
+        headerName: 'cpc - $',
+        field: 'cpc',
         cellRenderer: this.cpcRenderer,
-        cellClass: "grid-cell-centered",
-        filter: "agNumberColumnFilter",
-        filterOptions: "greaterThan"
+        cellClass: 'grid-cell-centered',
+        filter: 'agNumberColumnFilter',
+        filterOptions: 'greaterThan'
       }
-    ];
+    ]
 
     this.icons = {
       sortUnSort:
@@ -203,53 +204,53 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
         '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#9999CC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#E3E3FC" /></svg>',
       sortDescending:
         '<svg height="12" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 6L3 10L6 6" fill="#E3E3FC" /><path fill-rule="evenodd" clip-rule="evenodd" d="M0 4L3 0L6 4" fill="#9999CC" /></svg>'
-    };
+    }
 
     this.fetchData(
-      "http://95.217.76.23:5454/api/list_keyword_info_for_domain",
+      'http://95.217.76.23:5454/api/list_keyword_info_for_domain',
       '{"firstDate": "2020-02-25", "lastDate": "2020-02-20", "domain":"akakce.com", "limit":"100", "page": 3 }'
-    ).then(res => (this.rowData = res));
+    ).then(res => (this.rowData = res))
   }
 
   public onGridReady(params: any): void {
-    this.gridApi = params.api;
-    this.gridApi.sizeColumnsToFit();
+    this.gridApi = params.api
+    this.gridApi.sizeColumnsToFit()
 
     LicenseManager.setLicenseKey(
-      "For_Trialing_ag-Grid_Only-Not_For_Real_Development_Or_Production_Projects-Valid_Until-7_November_2020_[v2]_MTYwNDcwNzIwMDAwMA==e092019c061c6f309c36d9ef6026a1b6"
-    );
+      'For_Trialing_ag-Grid_Only-Not_For_Real_Development_Or_Production_Projects-Valid_Until-7_November_2020_[v2]_MTYwNDcwNzIwMDAwMA==e092019c061c6f309c36d9ef6026a1b6'
+    )
   }
 
   public onCellClicked(event: any): void {
     if (
-      event.column.colId == "keyword" ||
-      event.column.colId == "avgSearchVolume"
+      event.column.colId == 'keyword' ||
+      event.column.colId == 'avgSearchVolume'
     ) {
-      this.$store.state.clickedKeywords = event.node.data.keyword;
+      this.$store.state.clickedKeywords = event.node.data.keyword
 
       this.fetchData(
-        "http://95.217.76.23:5454/api/get_specific_search_volume",
+        'http://95.217.76.23:5454/api/get_specific_search_volume',
         `{"country": "tr", "lang": "tr", "keyword": "${event.node.data.keyword}" }`
       ).then(res => {
-        this.$store.commit("setSeries", res);
-        this.$store.commit("setCategories", res);
-        this.$store.state.isChartModalActive = true;
-      });
+        this.$store.commit('setSeries', res)
+        this.$store.commit('setCategories', res)
+        this.$store.state.isChartModalActive = true
+      })
     }
   }
 
   searchFilterParams = {
-    filterOptions: ["contains"],
+    filterOptions: ['contains'],
     textFormatter: function(r: any) {
-      if (r == null) return null;
-      return r.toLowerCase();
+      if (r == null) return null
+      return r.toLowerCase()
     },
     debounceMs: 0,
     suppressAndOrCondition: true
-  };
+  }
 
   public onFilterChanged(): void {
-    this.gridApi.setQuickFilter(this.inputText);
+    this.gridApi.setQuickFilter(this.inputText)
   }
 
   /*
@@ -259,38 +260,38 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
   */
 
   public onBtPrev(): void {
-    this.gridApi.paginationGoToPreviousPage();
+    this.gridApi.paginationGoToPreviousPage()
   }
   public onBtNext(): void {
-    this.gridApi.paginationGoToNextPage();
+    this.gridApi.paginationGoToNextPage()
   }
 
   public onPaginationChanged(): void {
-    console.log("onPaginationPageLoaded");
+    console.log('onPaginationPageLoaded')
     if (this.gridApi) {
-      this.setText("#currentPage", this.gridApi.paginationGetCurrentPage() + 1);
-      this.setText("#totalPage", this.gridApi.paginationGetTotalPages());
+      this.setText('#currentPage', this.gridApi.paginationGetCurrentPage() + 1)
+      this.setText('#totalPage', this.gridApi.paginationGetTotalPages())
     }
   }
 
   public get currentpage(): string {
-    return this.gridApi.paginationGetCurrentPage() + 1;
+    return this.gridApi.paginationGetCurrentPage() + 1
   }
 
   public setText(selector: any, text: string): void {
-    document.querySelector(selector).innerHTML = text;
+    document.querySelector(selector).innerHTML = text
   }
 
   public pageSizeChanged(): void {
-    this.gridApi.paginationSetPageSize(Number(this.pageSize));
+    this.gridApi.paginationSetPageSize(Number(this.pageSize))
   }
 
-  pageSelectOptions = [10, 20, 50];
+  pageSelectOptions = [10, 20, 50]
   pageSelectAttributes: any = {
-    ref: "openIndicator",
-    role: "presentation",
-    class: "vs__open-indicator"
-  };
+    ref: 'openIndicator',
+    role: 'presentation',
+    class: 'vs__open-indicator'
+  }
 
   /*
   ======================
@@ -299,52 +300,52 @@ export default class Home extends Mixins(FetchData, NumFormetter) {
   */
 
   public searchVolumeRenderer(params: any): string {
-    const value = params.value;
-    const ComponentClass = Vue.extend(SVGVolume);
-    const icon = new ComponentClass().$mount().$el;
-    const wrapper = document.createElement("span");
-    wrapper.appendChild(icon);
+    const value = params.value
+    const ComponentClass = Vue.extend(SVGVolume)
+    const icon = new ComponentClass().$mount().$el
+    const wrapper = document.createElement('span')
+    wrapper.appendChild(icon)
 
     if (value < 1000) {
-      wrapper.classList.add("vol1");
+      wrapper.classList.add('vol1')
     } else if (value >= 1000 && value <= 10000) {
-      wrapper.classList.add("vol2");
+      wrapper.classList.add('vol2')
     } else if (value >= 10000 && value <= 50000) {
-      wrapper.classList.add("vol3");
+      wrapper.classList.add('vol3')
     } else if (value >= 50000 && value <= 100000) {
-      wrapper.classList.add("vol4");
+      wrapper.classList.add('vol4')
     }
 
-    const transporterDiv = document.createElement("div");
-    transporterDiv.appendChild(wrapper);
+    const transporterDiv = document.createElement('div')
+    transporterDiv.appendChild(wrapper)
 
-    return transporterDiv.innerHTML + value;
+    return transporterDiv.innerHTML + value
   }
 
   public rankRenderer(params: any): string {
-    const ComponentClass = Vue.extend(SVGStar);
-    const icon = new ComponentClass().$mount().$el;
-    const value = params.value;
-    const transporterDiv = document.createElement("div");
-    transporterDiv.appendChild(icon);
+    const ComponentClass = Vue.extend(SVGStar)
+    const icon = new ComponentClass().$mount().$el
+    const value = params.value
+    const transporterDiv = document.createElement('div')
+    transporterDiv.appendChild(icon)
 
-    return value + transporterDiv.innerHTML;
+    return value + transporterDiv.innerHTML
   }
 
   public pixelRankRenderer(params: any): string {
-    return this.numFormatter(params.value);
+    return this.numFormatter(params.value)
   }
 
   public diffRenderer(params: any): string {
-    return params.value;
+    return params.value
   }
 
   public urlPageRenderer(params: any): string {
-    return `<a href="${params.value}" target="_blank">${params.value}</a>`;
+    return `<a href="${params.value}" target="_blank">${params.value}</a>`
   }
 
   public cpcRenderer(params: any): string {
-    return params.value.toFixed(2);
+    return params.value.toFixed(2)
   }
 }
 </script>
